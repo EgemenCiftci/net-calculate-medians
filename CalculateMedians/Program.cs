@@ -14,21 +14,21 @@ static IEnumerable<double> CalculateMedians(IEnumerable<double> input)
     foreach (var item in input)
     {
         var value = -item;
-        value = -smaller.EnqueueDequeue(value, value);
+        value = -smaller.EnqueueDequeue(value, value); // Add value to the left side and remove max value from the left side
 
         if (greater.Count == smaller.Count)
         {
-            value = -greater.EnqueueDequeue(value, value);
-            smaller.Enqueue(value, value);
+            value = -greater.EnqueueDequeue(value, value); // Add value to the right side and remove min value from the right side
+            smaller.Enqueue(value, value); // Add value to the left side
         }
         else
         {
-            greater.Enqueue(value, value);
+            greater.Enqueue(value, value); // Add value to the right side
         }
 
         if (greater.Count == smaller.Count)
-            yield return (greater.Peek() - smaller.Peek()) / 2;
+            yield return (greater.Peek() - smaller.Peek()) / 2; // There are two values in the middle
         else
-            yield return -smaller.Peek();
+            yield return -smaller.Peek(); // Middle value is at the left side
     }
 }
