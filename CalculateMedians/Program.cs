@@ -18,7 +18,7 @@ static IEnumerable<double> CalculateMedians(IEnumerable<double> input)
 
     foreach (double item in input)
     {
-        var value = -item;
+        double value = -item;
         value = -smaller.EnqueueDequeue(value, value); // Add value to the left side and remove max value from the left side
 
         if (greater.Count == smaller.Count)
@@ -32,8 +32,12 @@ static IEnumerable<double> CalculateMedians(IEnumerable<double> input)
         }
 
         if (greater.Count == smaller.Count)
+        {
             yield return (greater.Peek() - smaller.Peek()) / 2; // There are two values in the middle
+        }
         else
+        {
             yield return -smaller.Peek(); // Middle value is at the left side
+        }
     }
 }
